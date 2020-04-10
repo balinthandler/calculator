@@ -5,17 +5,26 @@ body {
     background-color: rgb(46, 46, 46);
     width: auto;
 }
-p{
+#display{  display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     height:50px;
-    width: 390px;
+    width: 391px;
     background-color: white;
+    font-size: 30px;
 }
+
 .btncontainer {
     margin:0px;
     padding: 0px;
     border: 0px;
 
 }
+#clear {
+    width: 391;
+    background-color: red;
+}
+
 button{
     width: 75px;
     height: 50px;

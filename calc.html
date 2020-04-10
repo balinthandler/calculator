@@ -6,41 +6,45 @@
     </head>
     <body>
         <div id="container">
-            <p id="display"></p>  
+            <div id="display"<p></p></div>  
             <div class="btnContainer">
-                <button id="MC">MC</button>
-                <button id="MR">MR</button>
-                <button id="M+">M+</button>
-                <button id="M-">M-</button>
-                <button id="C">C</button>
+                <button class="modifier" id="clear" value="clear">C</button>
+                <button class="modifier" id="delete" value="delete">DEL</button>
             </div>
             <div class="btnContainer">
-                <button id="7">7</button>
-                <button id="8">8</button>
-                <button id="9">9</button>
-                <button id="divide">÷</button>
-                <button id="sqroot">√</button>
+                <button class="memory" id="mClear" value="mClear">MC</button>
+                <button class="memory" id="mRead" value="mRead">MR</button>
+                <button class="memory" id="mAdd" value="mAdd">M+</button>
+                <button class="memory" id="mSubtract" value="mSubtract">M-</button>
+                <button class="memory" id="mSet" value="mSet">MS</button>
             </div>
             <div class="btnContainer">
-                <button id="4">4</button>
-                <button id="5">5</button>
-                <button id="6">6</button>
-                <button id="multiply">*</button>
-                <button id="percent">%</button>
+                <button class="numbers" id="7" data-key="103" value="7">7</button>
+                <button class="numbers" id="8" data-key="104" value="8">8</button>
+                <button class="numbers" id="9" data-key="105" value="9">9</button>
+                <button class="operator" id="divide" data-key="111" value="divide">÷</button>
+                <button class="operator" id="sqroot" value="sqroot">√</button>
             </div>
             <div class="btnContainer">
-                <button id="1">1</button>
-                <button id="2">2</button>
-                <button id="3">3</button>
-                <button id="subtract">*</button>
-                <button id="inOne">1/x</button>
+                <button class="numbers" id="4" data-key="100" value="4">4</button>
+                <button class="numbers" id="5" data-key="101" value="5">5</button>
+                <button class="numbers" id="6" data-key="102" value="6">6</button>
+                <button class="operator" id="multiply" data-key="106" value="multiply">*</button>
+                <button class="operator" id="percent" data-key="53" value="percent">%</button>
             </div>
             <div class="btnContainer">
-                <button id="0">1</button>
-                <button id="dot">2</button>
-                <button id="progn">+/-</button>
-                <button id="add">+</button>
-                <button id="equals">=</button>
+                <button class="numbers" id="1" data-key="97" value="1">1</button>
+                <button class="numbers" id="2" data-key="98" value="2">2</button>
+                <button class="numbers" id="3" data-key="99" value="3">3</button>
+                <button class="operator" id="subtract" data-key="109" value="subtract">-</button>
+                <button class="operator" id="inOne" value="inOne">1/x</button>
+            </div>
+            <div class="btnContainer">
+                <button class="numbers" id="0" data-key="96" value="0">0</button>
+                <button class="numbers" id="dot" data-key="110" value=".">.</button>
+                <button class="operator" id="progn" value="progn">+/-</button>
+                <button class="operator" id="add" data-key="107" value="add">+</button>
+                <button class="modifier" id="equals" data-key="13" value="equals">=</button>
             </div>
 
         </div>
