@@ -15,20 +15,42 @@ body {
 }
 
 .btncontainer {
+    display: flex;
     margin:0px;
     padding: 0px;
     border: 0px;
 
-}
-#clear {
-    width: 391;
-    background-color: red;
+
 }
 
 button{
     width: 75px;
     height: 50px;
     margin-top: 3px;
+    font-size: 20px;
+    color: rgb(97, 97, 97);
+} 
+#clear {
+    background-color: red;
+    margin:0px;
+    padding: 0px;
+    border: 0px;
 
+}    
+    
 
+#delete{
+    width: 154px;
+    margin:0px;
+    padding: 0px;
+    border: 0px;
+}
+#clear:hover{
+    background-color: ;
+}
+button:hover {
+    background-color: rgb(213, 228, 233);
+    margin:0px;
+    padding: 0px;
+    border: 0px;
 }

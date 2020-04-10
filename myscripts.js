@@ -4,6 +4,7 @@ let displayedValue = 0;
 let currentValueArray = [];
 let operator = '';
 let prevOperator = '';
+let workingOperator = '';
 let memory = 0;
 
 let a = 5.5;
@@ -26,13 +27,19 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     }
     //Operator buttons
     else if (this.className === 'operator') {
-        if operator == ''
-        operator = this.value;
-        console.log('Operator: ' + operator);
+        if (operator === '') {
+            operator = this.value;
+            workingOperator = operator;
+            console.log('Operator: ' + operator);
+        } else {
+            prevOperator = operator;
+            operator = this.value;
+            workingOperator = prevOperator;
+        }
 
         
         //Operators
-            if (operator === 'add' || operator === 'subtract' || operator === 'multiply' || operator === 'divide') {
+            if (workingOperator === 'add' || workingOperator === 'subtract' || workingOperator === 'multiply' || workingOperator === 'divide') {
                 currentValueArray = []; 
                 if (previousValue != 0) {
                     displayedValue = operate(previousValue, currentValue); 
@@ -55,6 +62,8 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             displayedValue = operate(previousValue, currentValue); 
             previousValue = displayedValue;
             currentValue = 0;
+            operator = 0;
+            prevOperator = 0;
             displayValue();
             console.log();    
         }
@@ -91,19 +100,19 @@ function displayValue() {
 
 //Doing the math function   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 function operate(a,b){
-    if (operator === 'add') {
+    if (workingOperator === 'add') {
         return a+b;
-    } else if (operator === 'subtract'){
+    } else if (workingOperator === 'subtract'){
         return a-b;
-    } else if (operator === 'multiply'){
+    } else if (workingOperator === 'multiply'){
         return a*b;
-    } else if (operator === 'divide'){
+    } else if (workingOperator === 'divide'){
         return a/b;
-    } else if (operator === 'progn'){
+    } else if (workingOperator === 'progn'){
         return b*-1;
-    } else if (operator === 'percent'){
+    } else if (workingOperator === 'percent'){
         return 100/b;
-    } else if (operator === 'inOne'){
+    } else if (workingOperator === 'inOne'){
         return 1/b;
     }
 }
