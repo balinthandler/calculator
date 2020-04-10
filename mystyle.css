@@ -46,7 +46,7 @@ button{
     border: 0px;
 }
 #clear:hover{
-    background-color: ;
+    background-color: rgb(240, 129, 38);
 }
 button:hover {
     background-color: rgb(213, 228, 233);

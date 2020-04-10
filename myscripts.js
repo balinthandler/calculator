@@ -27,18 +27,17 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     }
     //Operator buttons
     else if (this.className === 'operator') {
-        if (operator === '') {
-            operator = this.value;
-            workingOperator = operator;
-            console.log('Operator: ' + operator);
-        } else {
-            prevOperator = operator;
-            operator = this.value;
-            workingOperator = prevOperator;
-        }
+            if (operator === '') {
+                operator = this.value;
+                workingOperator = operator;
+                console.log('Operator: ' + operator);
+            } else {
+                prevOperator = operator;
+                operator = this.value;
+                workingOperator = prevOperator;
+            }
 
-        
-        //Operators
+            //Operators
             if (workingOperator === 'add' || workingOperator === 'subtract' || workingOperator === 'multiply' || workingOperator === 'divide') {
                 currentValueArray = []; 
                 if (previousValue != 0) {
@@ -53,18 +52,57 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                     console.log('Current value: ' + currentValue);
                 }
             }
-        
     }
+    // Action buttons
+    else if (this.className === 'action') {
+            if (currentValue != 0) {
+                if (this.id === 'percent') {
+                    displayedValue = currentValue / 100;
+                    currentValue = displayedValue;
+                    currentValueArray = [];
+                    displayValue();
+
+                } else if (this.id === 'square') {
+                    displayedValue = currentValue * currentValue;
+                    currentValue = displayedValue;
+                    currentValueArray = [];
+                    displayValue();
+                } else if (this.id === 'inOne') {
+                    displayedValue = 1 / currentValue;
+                    currentValue = displayedValue;
+                    currentValueArray = [];
+                    displayValue();
+                } else if (this.id === 'sqroot') {
+                    displayedValue = Math.sqrt(currentValue);
+                    currentValue = displayedValue;
+                    currentValueArray = [];
+                    displayValue();
+          /*      } else if (this.id === 'delete') {
+                    displayedValue = (currentValue.toString()).slice(1,1);
+                    currentValue = displayedValue;
+                    displayValue();
+                }else if (this.id === 'progn') {
+                    displayedValue = currentValue * -1;
+                    currentValue = displayedValue;
+                    displayValue(); 
+                }
+
+            } 
+    }
+
     //Modifier buttons
     if (this.className === 'modifier') {
         //Equals Button
-        if (this.id === 'equals'){
+        if (this.id === 'equals' && previousValue != 0){
             displayedValue = operate(previousValue, currentValue); 
             previousValue = displayedValue;
+            displayValue();
             currentValue = 0;
+            previousValue = 0;
+            displayedValue = 0;
+            currentValueArray = [];
             operator = 0;
             prevOperator = 0;
-            displayValue();
             console.log();    
         }
         //Clear Button
@@ -98,7 +136,7 @@ function displayValue() {
 
 }
 
-//Doing the math function   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+//Doing the math operations   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 function operate(a,b){
     if (workingOperator === 'add') {
         return a+b;
@@ -110,10 +148,8 @@ function operate(a,b){
         return a/b;
     } else if (workingOperator === 'progn'){
         return b*-1;
-    } else if (workingOperator === 'percent'){
-        return 100/b;
-    } else if (workingOperator === 'inOne'){
-        return 1/b;
-    }
+    } 
 }
+
 //  -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
