@@ -30,7 +30,7 @@ button{
     font-size: 20px;
     color: rgb(97, 97, 97);
 } 
-#clear {
+#clearAll {
     background-color: red;
     margin:0px;
     padding: 0px;
@@ -45,7 +45,7 @@ button{
     padding: 0px;
     border: 0px;
 }
-#clear:hover{
+#clearAll:hover{
     background-color: rgb(240, 129, 38);
 }
 button:hover {
