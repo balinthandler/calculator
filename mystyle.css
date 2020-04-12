@@ -1,56 +1,72 @@
-body {
-    background-color: rgb(66, 66, 66);
+body, html {
+    display: flex;
+    background-image: url(calcWall.png);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    justify-content: center;
+    align-items: center;
+
+
+    
 }
 #container{
-    background-color: rgb(46, 46, 46);
-    width: auto;
-}
-#display{  display: flex;
-    flex-direction: row-reverse;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    height:50px;
-    width: 391px;
+    justify-content: center;
+    background-color: rgba(20, 20, 20, 0.7);
+    width: 400px;
+    height:400px;
+    padding: 20px;
+    border: 1px solid black;
+}
+#dispContainer{      
+    display: flex;
+    margin: 0px 0px 3px 0px;
+    padding-right: 5px;
+    align-items: center;
+    justify-content: flex-end;
+    border: 0px;
     background-color: white;
+    width: 394px;
+    height: 50px;
+}
+#dispText{  
+    height:auto;
+    width: auto;
     font-size: 30px;
 }
 
-.btncontainer {
+#delete{
+    width: 156px;
+}
+.rowContainer {
     display: flex;
-    margin:0px;
-    padding: 0px;
-    border: 0px;
-
-
+    justify-content: center;
+    margin: 0px;
 }
 
 button{
+    font-family: Arial, Helvetica, sans-serif;
+
     width: 75px;
     height: 50px;
-    margin-top: 3px;
+    border-radius: 1px;
+    margin: 3px;
     font-size: 20px;
-    color: rgb(97, 97, 97);
+    border: 0;
+    color: rgba(27, 27, 27, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
 } 
-#clearAll {
-    background-color: red;
-    margin:0px;
-    padding: 0px;
-    border: 0px;
 
-}    
-    
-
-#delete{
-    width: 154px;
-    margin:0px;
-    padding: 0px;
-    border: 0px;
-}
-#clearAll:hover{
-    background-color: rgb(240, 129, 38);
-}
 button:hover {
-    background-color: rgb(213, 228, 233);
-    margin:0px;
-    padding: 0px;
-    border: 0px;
+    background-color: rgb(170, 170, 170);
+    -webkit-box-shadow: inset 0px 0px 10px 1px rgb(58, 58, 58);
+    -moz-box-shadow: inset 0px 0px 10px 1px rgb(58, 58, 58);
+    box-shadow: inset 0px 0px 10px 1px rgb(58, 58, 58);
+    color: white;
+
 }
