@@ -22,27 +22,39 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
     //Number buttons
     if (this.className === 'numbers') {
-        inputString += this.value;
+        if (inputString == '0' && this.id == '0') {
+            inputString = '0';
+        } else if (inputString == '0' && this.id != '0'){
+            inputString = this.value;}
+            else {
+                inputString += this.value;
+            }
+        
         currentValue = parseFloat(inputString);
         lastEnteredValue = currentValue;
-        displayedValue = currentValue;
+        displayedValue = inputString;
         displayValue(); 
     }
 
     // Decimal separator
     else if (this.id === 'dot') {
-            if (inputString == '') {
+            if (inputString == '' || inputString == '0') {
                 inputString = '0.';
                 currentValue = parseFloat(inputString);
                 lastEnteredValue = currentValue;
-                displayedValue = currentValue;
+                displayedValue = inputString;
                 displayValue();     
             } 
-            else if (inputString.search('.') < 0){
+            if (((inputString.search(/\./)) < 0) && inputString != ''){
                 inputString += '.';
-                displayedValue = currentValue;
-                display.innerText = inputString;
-            } 
+                displayedValue = inputString;
+                displayValue();     
+                
+            } else{
+                inputString += '';
+                displayedValue = inputString;
+                displayValue();     
+                }
     }
     //Operator buttons + -
     else if (this.className === 'operator') {
@@ -77,6 +89,15 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     // Action buttons, that take actions on displayed numbers only
     else if (this.className === 'action') {
 
+        // CE Button
+        if (this.id === 'clearCurrent') {
+            inputString = [0];
+            currentValue = parseFloat(inputString);
+            displayedValue = currentValue;
+            previousValue = displayedValue;
+            displayValue();
+        } 
+
         // C Button (it deletes saved values also)
         if (this.id === 'clearAll') {
             previousValue = 0;
@@ -86,6 +107,19 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             operator = '';
             prevOperator = '';
             workingOperator = '';
+            displayValue();
+        }
+        // ⌫ Button
+        if (this.id === 'delete') {
+            if ((inputString.search(/^[-]?[\d][.]?$/) > -1)) {
+                inputString = '0';
+            }
+            else{
+                inputString = inputString.slice(0,inputString.length-1);
+            } 
+            console.log('inputString: '+ inputString);
+            currentValue = parseFloat(inputString);
+            displayedValue = inputString;
             displayValue();
         }
         //Is there any newly entered number after operators/equals button?
@@ -157,26 +191,6 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                 displayValue();
             } 
 
-            // ⌫ Button
-            else if (this.id === 'delete') {
-                if (inputString.some(element => (element.value != '.') ? true : false))
-
-                inputString = deleteLength(inputString);
-                currentValue = parseFloat(inputString);
-                displayedValue = currentValue;
-                previousValue = displayedValue;
-                displayValue();
-            } 
-
-            // CE Button
-            else if (this.id === 'clearCurrent') {
-                inputString = [0];
-                currentValue = parseFloat(inputString);
-                displayedValue = currentValue;
-                previousValue = displayedValue;
-                displayValue();
-            } 
-
             // +/- Button
             else if (this.id === 'progn') {
                 if (currentValue != 0) {
@@ -222,18 +236,56 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     
     //Memory buttons
     else if (this.className === 'memory') {
-        if (this.value === 'mClear') {memory = 0;}
-        if (this.value === 'mAdd') {displayedValue += memory; displayValue()}
-        if (this.value === 'mRead') {displayedValue = memory; displayValue(); inputString = '';}
-        if (this.value === 'mSubtract') {displayedValue -= memory; displayValue()}
-        if (this.value === 'mSet') {memory = parseInt(displayedValue); inputString = '';}
-    }
-    console.log('Current value: ' + currentValue); 
-    console.log('Prev. value: ' + previousValue);
-    console.log('InputString: ' + inputString);
-    console.log('Operator: ' + operator);
-    console.log('Working operator: ' + workingOperator);
+        if (this.value === 'mClear') {
+            memory = 0;
+        }
+        if (this.value === 'mAdd') {
+            if (currentValue == 0) {
+                memory += previousValue;
+                displayedValue = previousValue;}
+            if (currentValue != 0) {
+                memory += currentValue;
+                displayedValue = currentValue;
+            }    
 
+            displayValue();
+            currentValue = 0;
+            inputString = '';
+
+        }
+        if (this.value === 'mRead') {
+            displayedValue = memory; 
+            displayValue(); 
+            inputString = '';
+            currentValue = 0;
+
+        }
+        if (this.value === 'mSubtract') {
+            if (currentValue == 0) {
+                memory -= previousValue;
+                displayedValue = previousValue;}
+            if (currentValue != 0) {
+                memory -= currentValue;
+                displayedValue = currentValue;
+            }   
+            displayValue();
+            currentValue = 0;
+            inputString = '';
+
+        }
+        if (this.value === 'mSet') {
+            if (currentValue == 0) {
+                memory = previousValue;
+                displayedValue = previousValue;}
+            if (currentValue != 0) {
+                memory = currentValue;
+                displayedValue = currentValue;
+                displayValue(); 
+                inputString = '';
+                currentValue = 0;
+            }
+        }
+    }
 
 }));  // End of Button Click eventListener 
 
@@ -245,7 +297,7 @@ function dotCheck(element) {
 
 //Putting values to display   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 function displayValue() {
-    display.innerText = displayedValue.toString();
+    display.innerText = displayedValue;
 
 }
 
