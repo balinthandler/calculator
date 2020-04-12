@@ -1,17 +1,12 @@
 let previousValue = 0;
 let currentValue = 0;
 let displayedValue = 0;
-let isDotOne = false;
 let lastEnteredValue = 0;
 let inputString = '';
 let operator = '';
 let prevOperator = '';
 let workingOperator = '';
 let memory = 0;
-
-
-let a = 5.5;
-let b = 10;
 let display = document.querySelector('p');
 
 displayValue();
@@ -24,12 +19,12 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     if (this.className === 'numbers') {
         if (inputString == '0' && this.id == '0') {
             inputString = '0';
-        } else if (inputString == '0' && this.id != '0'){
+        } 
+        else if (inputString == '0' && this.id != '0'){
             inputString = this.value;}
             else {
                 inputString += this.value;
             }
-        
         currentValue = parseFloat(inputString);
         lastEnteredValue = currentValue;
         displayedValue = inputString;
@@ -50,29 +45,22 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                 displayedValue = inputString;
                 displayValue();     
                 
-            } else{
-                inputString += '';
-                displayedValue = inputString;
-                displayValue();     
-                }
+            } 
     }
     //Operator buttons + -
     else if (this.className === 'operator') {
             if (operator === '') {
                 operator = this.value;
                 workingOperator = operator;
-                console.log('Operator: ' + operator);
             } else {
                 prevOperator = operator;
                 operator = this.value;
                 workingOperator = prevOperator;
             }
-
             //Operators + - / *
             if (workingOperator != '') {
                 inputString = ''; 
-                if (currentValue === 0) {
-                } 
+                if (currentValue == 0) {} 
                 else{  
                     if (previousValue != 0) {
                         displayedValue = operate(previousValue, currentValue); 
@@ -94,7 +82,6 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             inputString = [0];
             currentValue = parseFloat(inputString);
             displayedValue = currentValue;
-            previousValue = displayedValue;
             displayValue();
         } 
 
@@ -124,7 +111,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
         }
         //Is there any newly entered number after operators/equals button?
         if (currentValue === 0){
-        currentValue = previousValue;} else {}
+            currentValue = previousValue;} else {}
         if (currentValue != 0) {
 
             // % Button
@@ -135,30 +122,28 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                     inputString = '';
                     currentValue = 0;
                     displayValue();
-               } else if (operator == 'subtract') {
-                previousValue = previousValue - (previousValue * (currentValue/100));
-                displayedValue = previousValue;
-                inputString = '';
-                currentValue = 0;
-                displayValue();
-              
-               }else if (operator == 'multiply') {
-                previousValue = previousValue * (previousValue * (currentValue/100));
-                displayedValue = previousValue;
-                inputString = '';
-                currentValue = 0;
-                displayValue();
-              
-               }else if (operator == 'divide') {
-                previousValue = previousValue / (previousValue / (currentValue/100));
-                displayedValue = previousValue;
-                inputString = '';
-                currentValue = 0;
-                displayValue();
-              
+               } 
+               else if (operator == 'subtract') {
+                    previousValue = previousValue - (previousValue * (currentValue/100));
+                    displayedValue = previousValue;
+                    inputString = '';
+                    currentValue = 0;
+                    displayValue();
                }
-
-
+               else if (operator == 'multiply') {
+                    previousValue = previousValue * (previousValue * (currentValue/100));
+                    displayedValue = previousValue;
+                    inputString = '';
+                    currentValue = 0;
+                    displayValue();
+               }
+               else if (operator == 'divide') {
+                    previousValue = previousValue / (previousValue / (currentValue/100));
+                    displayedValue = previousValue;
+                    inputString = '';
+                    currentValue = 0;
+                    displayValue();
+               }
             } 
 
             // Square Button
@@ -247,18 +232,15 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                 memory += currentValue;
                 displayedValue = currentValue;
             }    
-
             displayValue();
             currentValue = 0;
             inputString = '';
-
         }
         if (this.value === 'mRead') {
             displayedValue = memory; 
             displayValue(); 
             inputString = '';
             currentValue = 0;
-
         }
         if (this.value === 'mSubtract') {
             if (currentValue == 0) {
@@ -271,7 +253,6 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             displayValue();
             currentValue = 0;
             inputString = '';
-
         }
         if (this.value === 'mSet') {
             if (currentValue == 0) {
@@ -290,17 +271,12 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 }));  // End of Button Click eventListener 
 
 
-//Dot Checker
-function dotCheck(element) {
-    return element == '';
-}
+
 
 //Putting values to display   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 function displayValue() {
     display.innerText = displayedValue;
-
 }
-
 //Doing the math operations   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 function operate(valueOne, valueTwo){
     if (workingOperator === 'add') {
@@ -314,13 +290,4 @@ function operate(valueOne, valueTwo){
     } else if (workingOperator === 'progn'){
         return valueOne * -1;
     } 
-}
-
-// Delete end of entered numbers, one by one
-function deleteLength(array) {
-    if (array.length > 1) {
-        return array.slice(0,array.length-1);
-        } else {
-        return array = [0];
-        }
 }
