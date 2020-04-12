@@ -3,7 +3,7 @@ let currentValue = 0;
 let displayedValue = 0;
 let isDotOne = false;
 let lastEnteredValue = 0;
-let currentValueArray = [];
+let inputString = '';
 let operator = '';
 let prevOperator = '';
 let workingOperator = '';
@@ -22,8 +22,8 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
     //Number buttons
     if (this.className === 'numbers') {
-        currentValueArray.push(this.value);
-        currentValue = parseFloat(currentValueArray.join(''));
+        inputString += this.value;
+        currentValue = parseFloat(inputString);
         lastEnteredValue = currentValue;
         displayedValue = currentValue;
         displayValue(); 
@@ -31,30 +31,18 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
     // Decimal separator
     else if (this.id === 'dot') {
-       
-        if (currentValueArray.some((element) => {return element == '.'})){
-            console.log('faszom');
-        }
-       
-       
-        if (currentValueArray.length == 0) {
-            currentValueArray.push('0'+'.');
-            currentValue = parseFloat(currentValueArray.join(''));
-            lastEnteredValue = currentValue;
-            displayedValue = currentValue;
-            displayValue();     
-        } 
-        if (currentValueArray.some((element) => {return element != '.'})) {
-            currentValueArray.push('.');
-            currentValue = parseFloat(currentValueArray.join(''));
-            lastEnteredValue = currentValue;
-            displayedValue = currentValue;
-            displayValue();  
-        
-        } 
-            
-
-           
+            if (inputString == '') {
+                inputString = '0.';
+                currentValue = parseFloat(inputString);
+                lastEnteredValue = currentValue;
+                displayedValue = currentValue;
+                displayValue();     
+            } 
+            else if (inputString.search('.') < 0){
+                inputString += '.';
+                displayedValue = currentValue;
+                display.innerText = inputString;
+            } 
     }
     //Operator buttons + -
     else if (this.className === 'operator') {
@@ -70,7 +58,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
             //Operators + - / *
             if (workingOperator != '') {
-                currentValueArray = []; 
+                inputString = ''; 
                 if (currentValue === 0) {
                 } 
                 else{  
@@ -94,7 +82,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             previousValue = 0;
             currentValue = 0;
             displayedValue = 0;
-            currentValueArray = [];
+            inputString = '';
             operator = '';
             prevOperator = '';
             workingOperator = '';
@@ -110,27 +98,27 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                 if (operator == 'add') {
                     previousValue = previousValue + (previousValue * (currentValue/100));
                     displayedValue = previousValue;
-                    currentValueArray = [];
+                    inputString = '';
                     currentValue = 0;
                     displayValue();
                } else if (operator == 'subtract') {
                 previousValue = previousValue - (previousValue * (currentValue/100));
                 displayedValue = previousValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 displayValue();
               
                }else if (operator == 'multiply') {
                 previousValue = previousValue * (previousValue * (currentValue/100));
                 displayedValue = previousValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 displayValue();
               
                }else if (operator == 'divide') {
                 previousValue = previousValue / (previousValue / (currentValue/100));
                 displayedValue = previousValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 displayValue();
               
@@ -143,7 +131,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             else if (this.id === 'square') {
                 displayedValue = currentValue * currentValue;
                 currentValue = displayedValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 previousValue = displayedValue;
                 displayValue();
@@ -153,7 +141,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             else if (this.id === 'inOne') {
                 displayedValue = 1 / currentValue;
                 currentValue = displayedValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 previousValue = displayedValue;
                 displayValue();
@@ -163,7 +151,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             else if (this.id === 'sqroot') {
                 displayedValue = Math.sqrt(currentValue);
                 currentValue = displayedValue;
-                currentValueArray = [];
+                inputString = '';
                 currentValue = 0;
                 previousValue = displayedValue;
                 displayValue();
@@ -171,10 +159,10 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
             // ⌫ Button
             else if (this.id === 'delete') {
-                if (currentValueArray.some(element => (element.value != '.') ? true : false))
+                if (inputString.some(element => (element.value != '.') ? true : false))
 
-                currentValueArray = deleteLength(currentValueArray);
-                currentValue = parseFloat(currentValueArray.join(''));
+                inputString = deleteLength(inputString);
+                currentValue = parseFloat(inputString);
                 displayedValue = currentValue;
                 previousValue = displayedValue;
                 displayValue();
@@ -182,8 +170,8 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
 
             // CE Button
             else if (this.id === 'clearCurrent') {
-                currentValueArray = [0];
-                currentValue = parseFloat(currentValueArray.join(''));
+                inputString = [0];
+                currentValue = parseFloat(inputString);
                 displayedValue = currentValue;
                 previousValue = displayedValue;
                 displayValue();
@@ -195,7 +183,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
                     displayedValue = currentValue * -1;
                     currentValue = displayedValue;
                     lastEnteredValue = currentValue;
-                    currentValueArray = currentValue.toString().split('');
+                    inputString = currentValue.toString();
                     displayValue(); 
                 }
             }
@@ -209,7 +197,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
         if (operator === '') {
             previousValue = lastEnteredValue;
             currentValue = 0;
-            currentValueArray = [];
+            inputString = '';
             
         }//Without new entered value
         else if (currentValue === 0){
@@ -218,7 +206,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             displayValue();
             currentValue = 0;
             displayedValue = 0;
-            currentValueArray = [];
+            inputString = '';
 
         }//With entered current value
          else if (currentValue != 0 ){
@@ -228,7 +216,7 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
             displayValue();
             currentValue = 0;
             displayedValue = 0;
-            currentValueArray = [];
+            inputString = '';
         }
     } //End of Equals Button
     
@@ -236,13 +224,13 @@ let btn = document.querySelectorAll('button').forEach(button => button.addEventL
     else if (this.className === 'memory') {
         if (this.value === 'mClear') {memory = 0;}
         if (this.value === 'mAdd') {displayedValue += memory; displayValue()}
-        if (this.value === 'mRead') {displayedValue = memory; displayValue(); currentValueArray = [];}
+        if (this.value === 'mRead') {displayedValue = memory; displayValue(); inputString = '';}
         if (this.value === 'mSubtract') {displayedValue -= memory; displayValue()}
-        if (this.value === 'mSet') {memory = parseInt(displayedValue); currentValueArray = [];}
+        if (this.value === 'mSet') {memory = parseInt(displayedValue); inputString = '';}
     }
     console.log('Current value: ' + currentValue); 
     console.log('Prev. value: ' + previousValue);
-    console.log('Array: ' + currentValueArray);
+    console.log('InputString: ' + inputString);
     console.log('Operator: ' + operator);
     console.log('Working operator: ' + workingOperator);
 
