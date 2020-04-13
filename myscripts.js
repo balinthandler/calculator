@@ -11,8 +11,19 @@ let display = document.querySelector('p');
 
 displayValue();
 
-//Getting button values -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
-//Numbers
+
+//H1 mouseover effect
+let h1 = document.querySelector('h1');
+h1.addEventListener('pointerover', function() {
+    h1.classList.add('transition');
+})
+h1.addEventListener('pointerout', function() {
+    if (h1.className !== 'transition') return;
+    h1.style.transition='all 0.5s ease';
+    h1.classList.remove('transition');
+})
+//-------------------------------
+
 let btn = document.querySelectorAll('button').forEach(button => button.addEventListener('click', function(){
 
     //Number buttons
